@@ -12,6 +12,6 @@ The following scripts are provided here. Each script includes comments describin
 
 **proteinortholoop.py**
 
-In the following file, methods are provived here.
+Methods are provived in the following file.
 
 **methods.txt**
