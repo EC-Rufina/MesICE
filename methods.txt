@@ -71,3 +71,8 @@ combine all the outputs for the queries and use it as input for cytoscape
 #first roary was run on the Symbiosis ICE (excluding tRNA-His integrated ICE), then scory was run on Roary's output
 roary -f ./ICEscore_70 -e -n -v -i 70 -s ./UniqueICEs_Prokka_noHis/*.gff
 scoary -g ICEscore_70/gene_presence_absence.csv -t ICEscore_70/traits.csv
+
+
+##For the trees in Figure S5 and S6, genes were aligned with the mafft algorithm and the tree built by calling
+raxmlHPC -f a -p $RANDOM -x $RANDOM -N 100 -m GTRCATX -T 16 -s input_aln.fasta -n mytree 
+
