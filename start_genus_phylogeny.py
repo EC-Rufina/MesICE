@@ -6,14 +6,14 @@ import os
 import csv
 import subprocess
 
-... Genus phylogeny
-this is composed by two scripts 1) start_genus_phylogeny.pyhton and 2) continue_genus_phylogeny.sh
-both scripts need to be in the same folder and only this script needs to be modified
+## Genus phylogeny
+#this is composed by two scripts 1) start_genus_phylogeny.pyhton and 2) continue_genus_phylogeny.sh
+#both scripts need to be in the same folder and only this script needs to be modified
 
-before starting you need to create 2 folders:
-one folder called prorteinortho, where you add the proteinortho result .tsv file
-one folder called prokka_annotation where you place all genomes annotation from prokka (we just need .faa and .gbk for this)
-...
+#before starting you need to create 2 folders:
+#one folder called prorteinortho, where you add the proteinortho result .tsv file
+#one folder called prokka_annotation where you place all genomes annotation from prokka (we just need .faa and .gbk for this)
+
 
 ##before you start type below the name of your .tsv file#
 name_of_pr_ortho_file="nameofmy.proteinortho.tsv"
