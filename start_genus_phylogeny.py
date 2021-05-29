@@ -112,5 +112,5 @@ for nome in os.listdir(output_path_RAW):
 
     ofile.close()
 
-#now we call the other script which is in bash, not elegant but does the job
+#now we call the bash script continue_genus_phylogeny.sh, not elegant but does the job
 subprocess.call("./continue_genus_phylogeny.sh", shell=True)
