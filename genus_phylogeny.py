@@ -4,11 +4,10 @@ from Bio import SeqFeature
 import sys
 import os
 import csv
-import subprocess
+import random
 
 ## Genus phylogeny
-#this is composed by two scripts 1) start_genus_phylogeny.pyhton and 2) continue_genus_phylogeny.sh
-#both scripts need to be in the same folder and only this script needs to be modified
+#this script needs to be modified
 
 #before starting you need to create 2 folders:
 #one folder called prorteinortho, where you add the proteinortho result .tsv file
@@ -112,5 +111,35 @@ for nome in os.listdir(output_path_RAW):
 
     ofile.close()
 
-#now we call the bash script continue_genus_phylogeny.sh, not elegant but does the job
-subprocess.call("./continue_genus_phylogeny.sh", shell=True)
+
+
+
+#now we align with mafft all coregenes
+
+for filename in os.listdir(final_ouput_path):
+   
+    if filename.endswith(".fasta"):
+        name=filename.replace('.fasta', '')
+        command='mafft --thread 16 --auto {}{} > coregenes_alinment/al_{}.fasta'.format(final_ouput_path,filename,name)
+        os.system(command)
+
+#we then remove gaps
+
+working_directory='coregenes_alinment/'
+for filename in os.listdir(working_directory):
+    name=filename.replace('.fasta', '')
+    command='goalign clean sites -i {}{} > coregenes_alinment_cleaned/{}.fasta'.format(working_directory,filename,name)
+    os.system(command)
+
+#we concatenate the alinments 
+command='goalign concat -i coregenes_alinment_cleaned/*.fasta -o clean_concatenated_core_aln.fasta'
+os.system(command)
+
+
+#we finally make the tree
+
+random1=random.randrange(0,32767)
+random2=random.randrange(0,32767)
+command='raxmlHPC -f a -p {} -x {} -N 100 -m GTRCATX -T 16 -s clean_concatenated_core_aln.fasta -n raxml_comp_cleaned_coregenes'.format(random1,random2) 
+os.system(command)
+
