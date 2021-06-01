@@ -6,7 +6,7 @@ This repository provides the methods and scripts used in the manuscript by Colom
 
 The following scripts are provided here. Each script includes comments describing its function.
 
-**genus_phylogeny.sh**
+**genus_phylogeny.py**
 
 **proteinortholoop.py**
 
