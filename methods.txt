@@ -42,11 +42,11 @@ ClonalFrameML ClFr/input/ICEtree.newick ClFr/input/BBalignment.fasta ClFr/output
 
 
 ##Alfy
-#Before running alfy the dataset folder was created where each file was a multifasta file.
-#each input sequence had a corresponding multifasta file named as the input sequence file and contained the sequence of all the Unique ICEs with the exception of input sequence (which is also the name of the dataset file)
+#Before running alfy the 'dataset' folder was created where each file was a multifasta file.
+#each input sequence had a corresponding multifasta file in the 'dataset' folder named as the input sequence file and it contained the sequence of all the Unique ICEs with the exception of input sequence (which is also the name of the dataset file)
 #then an Alfy loop was run as follow 
 
-for file in UniqueICEs_input/*.fasta; do filename=${file//UniqueICEs_input\/}; ./alfy -i UniqueICEs_input/"$filename" -j ICEalfy/dataset/"$filename" -w 1000 -M -P 0.05 | awk -f Scripts/quantifyGenotypes.awk >> ICEalfy/results/All_Unique_w1000.txt; echo -e "\n" >> ICEalfy/results/All_Unique_w1000.txt; done
+for file in UniqueICEs_input/*.fasta; do filename=${file//UniqueICEs_input\/}; ./alfy -i UniqueICEs_input/"$filename" -j /dataset/"$filename" -w 1000 -M -P 0.05 | awk -f Scripts/quantifyGenotypes.awk >> Alfy_results/All_Unique_w1000.txt; echo -e "\n" >> Alfy_results_results/All_Unique_w1000.txt; done
 
 #Alfy output would look like this for each ICEquery
 >ICEquery
@@ -63,12 +63,18 @@ ICEquery	ICEC	1
 if the ICEquery has no homologies to anyother element leave it blank
 ICEquery		
 
-combine all the outputs for the queries and use it as input for cytoscape
+combine the outputs for all the queries and use it as input for cytoscape (include headers)
 
 
 ##association analysis
 #association analysis was performed using scoary which reads the output of roary.
-#first roary was run on the Symbiosis ICE (excluding tRNA-His integrated ICE), then scory was run on Roary's output
+#first roary was run on all ICEs then only on the ICESyms (excluding tRNA-His integrated ICE), then scory was run on Roary's output
+#you need to make a traits.csv file where each line is your ICE named as in the input for roary and in each column (one column one trait) you add a 0 or 1 if your element has a trait (1) or not (0).
+#to isolate genes involved in symbiosis 
+roary -f ./ICEscore_40 -e -n -v -i 40 -s ./UniqueICEs_Prokka/*.gff  #which is the same command of the backbone identification
+scoary -g ICEscore_40/gene_presence_absence.csv -t ICEscore_40/traits.csv
+
+#to isolate plant-associated genes 
 roary -f ./ICEscore_70 -e -n -v -i 70 -s ./UniqueICEs_Prokka_noHis/*.gff
 scoary -g ICEscore_70/gene_presence_absence.csv -t ICEscore_70/traits.csv
 
