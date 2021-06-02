@@ -3,7 +3,7 @@ import sys
 import csv
 
 #with this script we run proteinortho in a loop by increasing protein identity threshold at each loop.
-#as it is it starts from 20 and increases by 5 at each step
+#it starts from 20 and increases by 5 at each step, you can change than by changing 'number'
 
 #the folder prokka_annotation should contain all the genomes (.faa) you want to run proteinortho on
 
@@ -29,7 +29,7 @@ for i in range (16):
             pan+=1
     numbcore=str(core)
     numbpan=str(pan)
-    out1 = open('iteratice_proteinortho_summary.csv', 'a')
+    out1 = open('iterative_proteinortho_summary.csv', 'a')
     out1.write(number_str + ',' + numbcore + ',' + numbpan + '\n')
     out1.close()
     number+=5
