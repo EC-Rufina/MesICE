@@ -71,7 +71,7 @@ for line in proteinortho_results:
 proteinortho_results = csv.reader(open(input_path + name_of_pr_ortho_file, 'r'), delimiter='\t')
 header = next(proteinortho_results)
 	
-print('all core genes locus tags list have been created, now I will extract the sequences' )
+print('all locus tags of the core genes have been identified, now I will extract the sequences' )
 
 num = 1
 
@@ -85,9 +85,7 @@ for nome in os.listdir(output_path_RAW):
     num +=1
     for element in ICElist:
         print('parsing   ' + element)
-        #mylist=open(output_path_RAW + nome , 'r')
-        #coregenes = mylist.read().split(',')
-        
+               
         ofile.write(">" + str(element) + "\n")
     
 
@@ -114,7 +112,7 @@ for nome in os.listdir(output_path_RAW):
 
 
 
-#now we align with mafft all coregenes
+#now we align with mafft all core genes
 
 for filename in os.listdir(final_ouput_path):
    
