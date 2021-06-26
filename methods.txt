@@ -1,7 +1,7 @@
 In this file you will find all the details on how the programs were run
 
 ##FastANI
-#belowe there is a small script to run FastANI between a set of genomes in .fasta located in the folder input_genomes/
+#below there is a small script to run FastANI between a set of genomes in .fasta format located in the folder input_genomes/
 
 $ runFastANI_loop.sh
 #!/bin/bash
@@ -17,19 +17,19 @@ fastANI --ql path_coregenomes.txt --rl path_coregenomes.txt --matrix -o FastANIs
 
 
 ##hmmscan in a loop
-#MOB profiles were dowloaded from https://github.com/gem-pasteur/Macsyfinder_models/tree/master/models/Conjugation/profiles
+#MOB profiles were downloaded from https://github.com/gem-pasteur/Macsyfinder_models/tree/master/models/Conjugation/profiles
 #same command was run to search coupling proteins
 
-#MOB profiles were combined and the database built using hppress
+#MOB profiles were combined and the database built using hmmpress
 #our database MOB.hmm was added to the folder MOB_search/database/
 #then the search was run as follow
 
 for filename in prokka_annotation/*.faa; do genomefaaname=${filename/prokka_annotation\/}; genome=${genomefaaname%.*}; hmmscan --cpu 16 -T 30 --tblout MOB_search/"$genome"_MOB.txt -o MOB_search/"$genome"_MOBresults.txt /MOB_search/database/MOB.hmm "$filename"; done
 
 ##backbone identification
-#all ICE were reannotated with prokka, all prokka outputs were placed in the folder UniqueICEs_Prokka
+#all ICEs were reannotated with prokka, all prokka outputs were placed in the folder UniqueICEs_Prokka
 #proteinortho was run as 
-proteinortho -clean -singles  /UniqueICEs_Prokka/*.faa -project=UniqueICEs_prortho
+proteinortho -clean -singles /UniqueICEs_Prokka/*.faa -project=UniqueICEs_prortho
 #roary was run as
 roary -f ./ICEscore_40 -e -n -v -i 40 -s ./UniqueICEs_Prokka/*.gff
 
@@ -60,7 +60,7 @@ ICEquery	ICEA	12
 ICEquery	ICEB	9
 ICEquery	ICEC	1
 
-if the ICEquery has no homologies to anyother element leave it blank
+if the ICEquery has no homologies, leave it blank
 ICEquery		
 
 combine the outputs for all the queries and use it as input for cytoscape (include headers)
@@ -68,8 +68,8 @@ combine the outputs for all the queries and use it as input for cytoscape (inclu
 
 ##association analysis
 #association analysis was performed using scoary which reads the output of roary.
-#first roary was run on all ICEs then only on the ICESyms (excluding tRNA-His integrated ICE), then scory was run on Roary's output
-#you need to make a traits.csv file where each line is your ICE named as in the input for roary and in each column (one column one trait) you add a 0 or 1 if your element has a trait (1) or not (0).
+#Roary was run on all ICEs then only on the ICESyms (excluding tRNA-His integrated ICE), then scory was run on Roary's output
+#you need to make a traits.csv file where each line is your ICE named as in the input for Roary and in each column (one column one trait) you add a 0 or 1 if your element has a trait (1) or not (0).
 #to isolate genes involved in symbiosis 
 roary -f ./ICEscore_40 -e -n -v -i 40 -s ./UniqueICEs_Prokka/*.gff  #which is the same command of the backbone identification
 scoary -g ICEscore_40/gene_presence_absence.csv -t ICEscore_40/traits.csv
