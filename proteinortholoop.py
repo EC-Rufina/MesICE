@@ -3,7 +3,7 @@ import sys
 import csv
 
 #with this script we run proteinortho in a loop by increasing protein identity threshold at each loop.
-#it starts from 20 and increases by 5 at each step, you can change than by changing 'number'
+#it starts from 20 and increases by 5 at each step, you can change than by changing 'number' at line 11 and line 35
 
 #the folder prokka_annotation should contain all the genomes (.faa) you want to run proteinortho on
 
