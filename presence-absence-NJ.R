@@ -1,10 +1,10 @@
-#this script was used to produce figure S7
+#these commands was used to produce the tree in figure S7
 
 
 library (ape)
 library(phangorn)
 
-#set your working directory on the roary output
+#set your working directory on the roary output folder, we used the output produced to find the backbone genes
 setwd("ICEscore_40")
 
 #upload your data
@@ -16,10 +16,10 @@ mat <- mat[, -c(1)]
 #transpose the matrix
 tmat <- t(mat)
 
-#calculate distance matrix and build a Neighbor-Joining tree 
+#calculate distance matrix and build a neighbor-joining tree 
 tmat.nj = nj(dist.gene(tmat, method = "pairwise"))
 
-#optional, you can root the tree a midpoint
+#optional, you can root the tree at midpoint
 rttree <-midpoint(tmat.nj)
 
 #check your tree
@@ -35,7 +35,7 @@ write.tree(rttree, 'ROARY_presence-absence_NJ.newick')
 #instead of using the output of roary, you can construct the same tree using as input the "proteinortho.tsv" file produced by proteinortho
 # FYI, the ICEs were clustered similarly (the tree separated ICESyms from other ICEs and plasmids, and also separated ICESyms based on their host-strain legume association).
 
-#set your working directory on the proteinortho output 
+#set your working directory on the proteinortho folder output 
 setwd("proteinortho")
 
 mat <- read.csv("UniqueICEs_prortho.proteinortho.tsv", sep = "\t", header = TRUE)
