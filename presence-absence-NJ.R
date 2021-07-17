@@ -1,6 +1,8 @@
 #these commands was used to produce the tree in figure S7
 #the purpose of this tree is simply to cluster ICEs based on their accessory genes, indipendently by the evolutionary processes by which these genes are present or absent in each ICE
 #the tree does not describe the phylogeny of the ICEs
+## these are commands for R ##
+
 
 library (ape)
 library(phangorn)
