@@ -10,7 +10,7 @@ import random
 #this script needs to be modified
 
 #before starting you need to create 2 folders:
-#one folder called prorteinortho, where you add the proteinortho result .tsv file
+#one folder called proteinortho, where you add the proteinortho result .tsv file
 #one folder called prokka_annotation where you place all genomes annotation from prokka (we just need .faa and .gbk for this)
 
 
@@ -25,7 +25,7 @@ z = 41
 input_path_prokka="/path/to/prokka_annotation/"
 
 
-#now you don't need to change anything now#
+#now you don't need to change anything else#
 #create all the folders
 output_path_RAW= "coregenes_locustags/"
 final_ouput_path = "coregenes/"
@@ -44,7 +44,7 @@ y = x + z
 r = range(3, y)
 
 
-#now we need to create a list with names of the genomes used in proteinortho
+#now we need to create a list with the names of the genomes used in proteinortho
 ICElist=[]
 for row in proteinortho_results:
     for i in range(x, y):
@@ -54,7 +54,7 @@ for row in proteinortho_results:
 
 ICElist = [s.replace(".faa", "") for s in ICElist]
 
-#we now extract the locus tag of each single copy conserved gene
+#we extract the locus tag of each single-copy conserved gene
 for line in proteinortho_results:
     
     if int(line[0])==z and int(line[1])==z:
@@ -89,7 +89,7 @@ for nome in os.listdir(output_path_RAW):
         ofile.write(">" + str(element) + "\n")
     
 
-###this loop here is made so the genes are in the same order in all cores, does not follow the order the genes are found on the genome###
+###this loop here is made so the genes are in the same order, does not follow the order the genes are found on the genome###
         
         gbk_input = SeqIO.parse(input_path_prokka + element + ".gbk", "genbank")
         print("i am parsing  " + element)
@@ -112,7 +112,7 @@ for nome in os.listdir(output_path_RAW):
 
 
 
-#now we align with mafft all core genes
+#now we align with mafft all the core genes
 
 for filename in os.listdir(final_ouput_path):
    
