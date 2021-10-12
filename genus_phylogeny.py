@@ -32,8 +32,8 @@ final_ouput_path = "coregenes/"
 
 os.mkdir(output_path_RAW)
 os.mkdir(final_ouput_path)
-os.mkdir("coregenes_alinment")
-os.mkdir("coregenes_alinment_cleaned")
+os.mkdir("coregenes_alignment")
+os.mkdir("coregenes_alignment_cleaned")
 
 
 
